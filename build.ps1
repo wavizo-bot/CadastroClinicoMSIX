@@ -3,11 +3,9 @@ echo Building Cadastro Clinico MSIX...
 echo.
 
 REM Build the web assets first
-cd ..
-cd "Cadastro Clinico"
+cd /d "%~dp0..\Cadastro Clinico"
 call pnpm run build
-cd ..
-cd CadastroClinicoMSIX
+cd /d "%~dp0"
 
 echo.
 echo Building MSIX package...
