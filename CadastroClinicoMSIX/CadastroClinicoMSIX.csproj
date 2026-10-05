@@ -7,7 +7,7 @@
     <Nullable>enable</Nullable>
     <ApplicationIcon>Assets\clinic-logo.jpg</ApplicationIcon>
     <WindowsPackageType>MSIX</WindowsPackageType>
-    <GenerateManifests>true</GenerateManifests>
+    <GenerateManifests>false</GenerateManifests>
   </PropertyGroup>
   <ItemGroup>
     <PackageReference Include="Microsoft.Web.WebView2" Version="1.0.2739.15" />
