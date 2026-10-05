@@ -1,0 +1,16 @@
+# CadastroClinicoMSIX ignore
+*.user
+*.suo
+*.cache
+*.dll
+*.exe
+*.pdb
+*.log
+*.vs
+*.vscode
+bin/
+obj/
+*.msix
+*.msixbundle
+*.appx
+*.appxbundle
