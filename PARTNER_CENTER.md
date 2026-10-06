@@ -107,3 +107,12 @@ Ordem das telas (docs Microsoft, app MSIX): **Pricing and availability → Prope
 - `PLAY_STORE_LISTING.txt` — textos da listagem (fonte para seção 3.5)
 - `PLAY_DATA_SAFETY.txt` — respostas equivalentes da Play (base para seções 2 e 3.3)
 - `client/public/politica-privacidade.html` — política de privacidade (fonte única)
+- **Log de diagnóstico do app (Windows):** `%LOCALAPPDATA%\CadastroClinico\msix-webview.log` — registra se o WebView2 renderizou (`nav OK {root:N, text:N}`); útil se a Store reprovar de novo
+
+## 6. Histórico de certificação
+
+| # | Data | Retorno | Causa | Correção |
+|---|---|---|---|---|
+| 1 | 06/10/2026 | *"does not display any content after launch"* (Surface Laptop 4, build 26200.9457) | App navegava por `file://`; `/assets/...` (caminho absoluto) virava `file:///assets` e módulos ES eram bloqueados por CORS em origem opaca → página em branco desde sempre | `MainForm.cs` agora usa `SetVirtualHostNameToFolderMapping("cadclinico.app", web)` + `https://cadclinico.app/index.html`; verificado com teste de instalação real do `.msix` (renderização `root:2, text:214`) |
+
+**Pacote atual:** `msix/dist/wavizo.CadastroClnico_1.0.7.0_x64.msix` (73,2 MB, sem assinatura, build 06/10/2026 19:43) — pronto para substituir o pacote em *Packages* e reenviar.
