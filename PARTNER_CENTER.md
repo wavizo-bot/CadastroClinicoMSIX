@@ -59,9 +59,10 @@ Ordem das telas (docs Microsoft, app MSIX): **Pricing and availability → Prope
 - Senão, responder o questionário: categoria **Productivity/Business**; sem violência, sem conteúdo sexual, sem drogas/armas, sem apostas, sem linguagem ofensiva, sem conteúdo gerado por usuários, sem navegador interto/compras, sem médico/instrutivo. Público-alvo: adultos (18+).
 
 ### 3.4 Packages
-- Gerar o pacote nesta máquina: `.\msix\build.ps1` (requer instalar **.NET 8 SDK** + VS 2022 workload — ver pendências)
-- Upload do `.msixbundle` gerado em `msix\CadastroClinicoMSIX\bin\Release\AnyCPU\Release\`
-- Microsoft **re-assina** o MSIX automaticamente — certificado próprio não é necessário
+- Gerar o pacote nesta máquina: `.\msix\build.ps1` (**já funciona**: .NET 8 SDK + `makeappx` do Windows SDK — Visual Studio não é necessário)
+- Upload do `.msix` gerado em **`msix\dist\wavizo.CadastroClnico_1.0.7.0_x64.msix`** (73,2 MB; formato aceito pelo Partner Center junto com .msixbundle/.msixupload)
+- **Não precisa assinar**: a Microsoft re-assina o pacote após a certificação (docs: *App package requirements for MSIX app*)
+- Arquitetura: **x64 autocontido** (não exige .NET na máquina do usuário); para cobrir ARM64 no futuro, gerar variante `-r win-arm64`
 - "What's new in this version" (limite 1500 caracteres): descrever as mudanças da versão 1.0.7
 
 ### 3.5 Store listings (por idioma: pt-BR)
@@ -90,8 +91,8 @@ Ordem das telas (docs Microsoft, app MSIX): **Pricing and availability → Prope
 
 | # | Pendência | Status |
 |---|---|---|
-| 1 | Instalar .NET 8 SDK (+ VS 2022 com ".NET desktop development") nesta máquina e rodar `.\msix\build.ps1` | Bloqueado (sem SDK) |
-| 2 | Capturar screenshots desktop (1366×768+) do app compilado | Depende do item 1 |
+| 1 | ~~Instalar .NET 8 SDK e rodar `.\msix\build.ps1`~~ | **CONCLUÍDO** — pacote gerado e validado: `msix/dist/wavizo.CadastroClnico_1.0.7.0_x64.msix` (73,2 MB, 05/10/2026); smoke test do app OK |
+| 2 | Capturar screenshots desktop (1366×768+, até 10) do app compilado | **PENDENTE** — rodar `msix\bin\msix-layout\CadastroClinicoMSIX.exe` e capturar (recomendado: fichas, território, importação CSV, buscador óptico) |
 | 3 | ~~Publicar `politica-privacidade.html` em URL HTTPS~~ | **CONCLUÍDO** — https://wavizo-bot.github.io/CadastroClinicoMSIX/politica-privacidade.html (Pages ativo, verificado no ar) |
 | 4 | Confirmar/obter o rating IARC (reaproveitar ID da Play) | Pendente (conta Partner Center) |
 | 5 | Incrementar versão no manifesto a cada nova submissão | Rotina |

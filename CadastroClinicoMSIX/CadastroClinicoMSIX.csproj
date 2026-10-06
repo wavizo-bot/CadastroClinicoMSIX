@@ -5,7 +5,7 @@
     <UseWindowsForms>true</UseWindowsForms>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
-    <ApplicationIcon>Assets\clinic-logo.jpg</ApplicationIcon>
+    <ApplicationIcon>Assets\app-icon.ico</ApplicationIcon>
     <WindowsPackageType>MSIX</WindowsPackageType>
     <GenerateManifests>false</GenerateManifests>
   </PropertyGroup>
