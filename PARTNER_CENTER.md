@@ -13,7 +13,7 @@
 | Package Family Name (PFN) | `wavizo.CadastroClnico_c5p81jb0en0bm` |
 | Package SID | `S-1-15-2-2847593193-4293426457-1784438407-1723172423-4006318822-2270365518-2666157207` |
 | Store ID | `9P88RMK5TDSB` |
-| Versão | `1.0.7.1` — **incrementar o 4º campo (compilação) a cada novo upload**: a Store rejeita dois pacotes com o mesmo nome completo e conteúdo diferente (*"Você forneceu dois pacotes com o nome completo wavizo.CadastroClnico_..."*). Manter em sincronia com o `version` do `package.json` (1.0.7) no campo 1.0.7 |
+| Versão | `1.0.8.0` — **política da Store: o 4º campo (revisão) SEMPRE 0** (erro: *"não é permitido ... número de revisão diferente de zero"*). Incrementar o **3º campo** a cada upload: `1.0.8.0` → `1.0.9.0` → `1.0.10.0`... (nunca reutilizar versões já enviadas, mesmo que reprovadas). O `package.json` (1.0.7) segue o app web/Android e pode divergir do wrapper MSIX |
 | Arquitetura | `ProcessorArchitecture="x64"` no Identity (era `Neutral` — colidia o nome completo entre uploads e não descrevia o conteúdo x64) |
 
 **DisplayName:** o `Package/Properties/DisplayName` do manifesto deve bater **exatamente** com o nome reservado na Store: `Cadastro Clínico` (com acento). O `build.ps1` lê/escreve o manifesto em UTF-8 explícito sem BOM — se fosse lido como ANSI, o Partner Center rejeitaria com erro *"nome de exibição que você não reservou: Cadastro ClÃ­nico"* (mojibake, corrigido em 05/10/2026).
@@ -116,6 +116,7 @@ Ordem das telas (docs Microsoft, app MSIX): **Pricing and availability → Prope
 | # | Data | Retorno | Causa | Correção |
 |---|---|---|---|---|
 | 1 | 06/10/2026 | *"does not display any content after launch"* (Surface Laptop 4, build 26200.9457) | App navegava por `file://`; `/assets/...` (caminho absoluto) virava `file:///assets` e módulos ES eram bloqueados por CORS em origem opaca → página em branco desde sempre | `MainForm.cs` agora usa `SetVirtualHostNameToFolderMapping("cadclinico.app", web)` + `https://cadclinico.app/index.html`; verificado com teste de instalação real do `.msix` (renderização `root:2, text:214`) |
-| 2 | 06/10/2026 | *"dois pacotes com o nome completo wavizo.CadastroClnico_1.0.7.0_Neutral_ ... conteúdos diferentes"* | Pacote antigo (mojibake) ainda no submission + novo upload com mesma versão e arquitetura `Neutral` | Versão → `1.0.7.1` e `ProcessorArchitecture="x64"`; apagar entradas antigas em Packages antes de subir o novo |
+| 2 | 06/10/2026 | *"dois pacotes com o nome completo wavizo.CadastroClnico_1.0.7.0_Neutral_ ... conteúdos diferentes"* | Pacote antigo (mojibake) ainda no submission + novo upload com mesma versão e arquitetura `Neutral` | `ProcessorArchitecture="x64"` + bump de versão; apagar entradas antigas em Packages antes de subir o novo |
+| 3 | 06/10/2026 | *"não é permitido ... número de revisão diferente de zero ... especifica 1.0.7.1"* | Versão incrementada no 4º campo (revisão) — proibido pela Store | 4º campo = `0` sempre; incrementar o 3º campo: `1.0.8.0` |
 
-**Pacote atual:** `msix/dist/wavizo.CadastroClnico_1.0.7.1_x64.msix` (73,2 MB, sem assinatura, build 06/10/2026 19:55) — remover os `.msix` antigos (1.0.7.0) em *Packages*, depois enviar este.
+**Pacote atual:** `msix/dist/wavizo.CadastroClnico_1.0.8.0_x64.msix` (73,2 MB, sem assinatura, build 06/10/2026 19:59) — remover entradas antigas em *Packages* e enviar este.
