@@ -13,7 +13,8 @@
     <PackageReference Include="Microsoft.Web.WebView2" Version="1.0.2739.15" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="web\**\*">
+    <Content Include="..\..\dist\public\**\*">
+      <Link>web\%(RecursiveDir)%(Filename)%(Extension)</Link>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
   </ItemGroup>

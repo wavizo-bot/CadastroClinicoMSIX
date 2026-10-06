@@ -1,59 +1,45 @@
-# Cadastro Clinico MSIX
+# Cadastro Clínico — MSIX / Microsoft Store (espelho)
 
-Pacote MSIX do aplicativo Cadastro Clínico para a Microsoft Store.
+Este repositório é um **espelho** da pasta `msix/` do projeto unificado
+[`wavizo-bot/CadastroClinico`](https://github.com/wavizo-bot/CadastroClinico)
+(fonte única de verdade — web, Android e Windows). Ele também hospeda a
+**política de privacidade** usada na submissão do Partner Center.
 
-## Estrutura do Projeto
+- **Política de privacidade (GitHub Pages):**
+  https://wavizo-bot.github.io/CadastroClinicoMSIX/politica-privacidade.html
+- **Guia de submissão:** veja [`PARTNER_CENTER.md`](./PARTNER_CENTER.md)
 
-- `CadastroClinicoMSIX/` - Projeto C# WinForms com WebView2
-- `web/` - Assets web compilados (Vite build)
-- `Assets/` - Ícones e imagens para o pacote MSIX
+## Estrutura
 
-## Pré-requisitos
+- `CadastroClinicoMSIX/` — projeto C# WinForms (.NET 8) + WebView2
+- `CadastroClinicoMSIX/Assets/` — logos do manifesto (todos PNG, gerados 05/10/2026)
+- `CadastroClinicoMSIX.sln` — solution
+- `build.ps1` — build completo (web + MSIX) — **rodar no projeto unificado**
+- `listing/store-tile-300x300.png` — 1:1 App tile para o Store listing
+- `politica-privacidade.html` — política de privacidade (arquivo publicado no Pages)
 
-- Windows 10/11
-- Visual Studio 2022 com workload:
-  - ".NET desktop development"
-  - "Desktop development with C++" (para ferramentas MSIX)
-- .NET 8 SDK
-- WebView2 Runtime (instalado automaticamente na maioria dos Windows 10/11)
+## Build (no projeto unificado, não neste espelho)
 
-## Build
-
-```powershell
-.\build.ps1
-```
-
-Ou manualmente:
+Na raiz de `Cadastro Clinico/`:
 
 ```powershell
-cd "Cadastro Clinico"
-pnpm run build
-cd ..
-cd CadastroClinicoMSIX
-msbuild CadastroClinicoMSIX.sln /p:Configuration=Release /p:Platform=x64 /p:AppxBundle=Always /p:UapAppxPackageBuildMode=StoreUpload
+.\msix\build.ps1
 ```
 
-O pacote MSIX será gerado em `CadastroClinicoMSIX\bin\Release\x64\Release`.
+O script executa `pnpm run build` (gera `dist/public/`) e depois o MSBuild.
+O `.csproj` referencia `..\..\dist\public\**\*` e leva os arquivos para `web\`
+no diretório de saída — não há cópia de build versionada.
 
-## Identidade do Pacote
+## Identidade do pacote
 
-- **Nome:** wavizo.CadastroClnico
+- **Name:** wavizo.CadastroClnico
 - **Publisher:** CN=57BB464E-553F-45B6-A4ED-B253157408EB
 - **PublisherDisplayName:** wavizo
 - **PFN:** wavizo.CadastroClnico_c5p81jb0en0bm
-- **Package SID:** S-1-15-2-2847593193-4293426457-1784438407-1723172423-4006318822-2270365518-2666157207
 - **Store ID:** 9P88RMK5TDSB
+- **Versão:** 1.0.7.0
 
-## Submissão na Microsoft Store
+## Hospedar a política (GitHub Pages)
 
-1. Gere o pacote MSIX usando o script de build
-2. Acesse o [Microsoft Partner Center](https://partner.microsoft.com/)
-3. Crie um novo app ou selecione o app existente com ID `9P88RMK5TDSB`
-4. Na seção "Pacotes", faça upload do arquivo `.msixbundle` gerado
-5. Complete as informações da listagem da loja e envie para certificação
-
-## Notas
-
-- Os ícones em `Assets/` devem ser gerados nas dimensões corretas antes do build
-- O app carrega os arquivos web da pasta `web/` usando WebView2
-- Não há servidor backend no pacote MSIX; todos os dados são armazenados localmente
+Se ainda não estiver ativo: repo → **Settings → Pages → Source: Deploy from a
+branch → Branch: `main` / root → Save**. A URL acima fica disponível em ~1 min.
