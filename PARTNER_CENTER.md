@@ -25,17 +25,15 @@ Repositórios:
 (Motivo honesto: o app *armazena* dados pessoais digitados pelo usuário — nome, CPF/CNS, endereço — no IndexedDB local. Não *transmite* nada a servidores.) Com "Sim", o Partner Center **exige a URL da política de privacidade**.
 
 - **Arquivo-fonte:** `client/public/politica-privacidade.html` (vira `dist/public/politica-privacidade.html` no build; já atualizado para citar Android + Windows)
-- **Campo no Partner Center:** Properties → Privacy policy URL (precisa ser `https://` público)
+- **URL PUBLICADA (usar no Partner Center):**
+  `https://wavizo-bot.github.io/CadastroClinicoMSIX/politica-privacidade.html`
+  (GitHub Pages ativo no repositório Windows, publicado em 05/10/2026 — verificado no ar)
+- **Campo no Partner Center:** Properties → Privacy policy URL (`https://` acima)
 - **Declaração para o campo de texto / notas (copiar e colar):**
 
-> O Cadastro Clínico não coleta, não transmite e não compartilha dados pessoais com terceiros. Não há conta, login, servidor, analytics, anúncios ou SDKs de terceiros. Os dados digitados pelo usuário (fichas de clientes) ficam somente no armazenamento local do dispositivo (IndexedDB cifrado com AES-GCM e chave gerada no próprio dispositivo). O app funciona offline; o acesso à internet do pacote (`internetClient`) serve apenas para abrir links externos opcionais (ex.: WhatsApp) por ação do usuário. O usuário pode apagar todos os dados a qualquer momento no app (Banco de Dados → Reiniciar) ou desinstalando. Contato de privacidade: mmr05@hotmail.com. Política completa: `<URL-HTTPS>`.
+> O Cadastro Clínico não coleta, não transmite e não compartilha dados pessoais com terceiros. Não há conta, login, servidor, analytics, anúncios ou SDKs de terceiros. Os dados digitados pelo usuário (fichas de clientes) ficam somente no armazenamento local do dispositivo (IndexedDB cifrado com AES-GCM e chave gerada no próprio dispositivo). O app funciona offline; o acesso à internet do pacote (`internetClient`) serve apenas para abrir links externos opcionais (ex.: WhatsApp) por ação do usuário. O usuário pode apagar todos os dados a qualquer momento no app (Banco de Dados → Reiniciar) ou desinstalando. Contato de privacidade: mmr05@hotmail.com. Política completa: https://wavizo-bot.github.io/CadastroClinicoMSIX/politica-privacidade.html.
 
-**Hospedagem da URL (pendência):** nenhum dos repositórios tem GitHub Pages ativo hoje. Opções:
-1. GitHub Pages no repositório Windows → `https://wavizo-bot.github.io/CadastroClinicoMSIX/politica-privacidade.html`
-2. GitHub Pages no repositório Android → `https://wavizo-bot.github.io/CadastroClinico/politica-privacidade.html`
-3. Domínio próprio (se existir)
-
-Enquanto a URL não existir, a submissão **não pode ser concluída** (campo obrigatório).
+**Manutenção da URL:** a página é publicada a partir da raiz do branch `main` do repositório Windows (`politica-privacidade.html`). Atualizações: editar a fonte em `client/public/politica-privacidade.html`, copiar para a raiz do repo Windows e fazer push (Pages reconstrói em ~1 min).
 
 ## 3. Checklist de submissão no Partner Center
 
@@ -94,9 +92,10 @@ Ordem das telas (docs Microsoft, app MSIX): **Pricing and availability → Prope
 |---|---|---|
 | 1 | Instalar .NET 8 SDK (+ VS 2022 com ".NET desktop development") nesta máquina e rodar `.\msix\build.ps1` | Bloqueado (sem SDK) |
 | 2 | Capturar screenshots desktop (1366×768+) do app compilado | Depende do item 1 |
-| 3 | Publicar `politica-privacidade.html` em URL HTTPS (GitHub Pages ou domínio) e preencher no Partner Center | Decisão pendente |
+| 3 | ~~Publicar `politica-privacidade.html` em URL HTTPS~~ | **CONCLUÍDO** — https://wavizo-bot.github.io/CadastroClinicoMSIX/politica-privacidade.html (Pages ativo, verificado no ar) |
 | 4 | Confirmar/obter o rating IARC (reaproveitar ID da Play) | Pendente (conta Partner Center) |
 | 5 | Incrementar versão no manifesto a cada nova submissão | Rotina |
+| 6 | ~~Atualizar repo Windows com conteúdo unificado~~ | **CONCLUÍDO** — push `c7d679e` em 05/10/2026 (web/ removida, msix/ + política no ar) |
 
 ## 5. Arquivos de apoio
 
