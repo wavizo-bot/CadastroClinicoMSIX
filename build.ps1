@@ -39,8 +39,9 @@ foreach ($f in $manifestRefs) {
 }
 
 # AppxManifest.xml: mesmo manifesto do projeto, com o token do executavel resolvido
-$appxManifest = (Get-Content -LiteralPath $manifest -Raw) -replace '\$targetnametoken\$', ([IO.Path]::GetFileNameWithoutExtension($exeName))
-Set-Content -LiteralPath (Join-Path $layout "AppxManifest.xml") -Value $appxManifest -Encoding UTF8
+# Leitura como UTF-8 explicito (senao o PS 5.1 le como ANSI e duplica os acentos)
+$appxManifest = [IO.File]::ReadAllText($manifest, [Text.Encoding]::UTF8) -replace '\$targetnametoken\$', ([IO.Path]::GetFileNameWithoutExtension($exeName))
+[IO.File]::WriteAllText((Join-Path $layout "AppxManifest.xml"), $appxManifest, (New-Object System.Text.UTF8Encoding($false)))
 
 if (-not (Test-Path (Join-Path $layout "web\index.html"))) { throw "web\index.html ausente no layout - dist/public foi gerado?" }
 if (-not (Test-Path (Join-Path $layout $exeName))) { throw "$exeName ausente no layout." }

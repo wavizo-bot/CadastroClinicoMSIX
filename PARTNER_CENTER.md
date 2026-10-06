@@ -15,6 +15,8 @@
 | Store ID | `9P88RMK5TDSB` |
 | Versão | `1.0.7.0` (igual ao `version` do `package.json` — incrementar a cada submissão: Maior.Menor.Patch.Compilação) |
 
+**DisplayName:** o `Package/Properties/DisplayName` do manifesto deve bater **exatamente** com o nome reservado na Store: `Cadastro Clínico` (com acento). O `build.ps1` lê/escreve o manifesto em UTF-8 explícito sem BOM — se fosse lido como ANSI, o Partner Center rejeitaria com erro *"nome de exibição que você não reservou: Cadastro ClÃ­nico"* (mojibake, corrigido em 05/10/2026).
+
 Repositórios:
 - Windows (MSIX): https://github.com/wavizo-bot/CadastroClinicoMSIX.git
 - Android/Web: https://github.com/wavizo-bot/CadastroClinico.git
