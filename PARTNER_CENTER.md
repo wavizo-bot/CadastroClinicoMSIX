@@ -13,7 +13,8 @@
 | Package Family Name (PFN) | `wavizo.CadastroClnico_c5p81jb0en0bm` |
 | Package SID | `S-1-15-2-2847593193-4293426457-1784438407-1723172423-4006318822-2270365518-2666157207` |
 | Store ID | `9P88RMK5TDSB` |
-| Versão | `1.0.7.0` (igual ao `version` do `package.json` — incrementar a cada submissão: Maior.Menor.Patch.Compilação) |
+| Versão | `1.0.7.1` — **incrementar o 4º campo (compilação) a cada novo upload**: a Store rejeita dois pacotes com o mesmo nome completo e conteúdo diferente (*"Você forneceu dois pacotes com o nome completo wavizo.CadastroClnico_..."*). Manter em sincronia com o `version` do `package.json` (1.0.7) no campo 1.0.7 |
+| Arquitetura | `ProcessorArchitecture="x64"` no Identity (era `Neutral` — colidia o nome completo entre uploads e não descrevia o conteúdo x64) |
 
 **DisplayName:** o `Package/Properties/DisplayName` do manifesto deve bater **exatamente** com o nome reservado na Store: `Cadastro Clínico` (com acento). O `build.ps1` lê/escreve o manifesto em UTF-8 explícito sem BOM — se fosse lido como ANSI, o Partner Center rejeitaria com erro *"nome de exibição que você não reservou: Cadastro ClÃ­nico"* (mojibake, corrigido em 05/10/2026).
 
@@ -64,8 +65,9 @@ Ordem das telas (docs Microsoft, app MSIX): **Pricing and availability → Prope
 - Gerar o pacote nesta máquina: `.\msix\build.ps1` (**já funciona**: .NET 8 SDK + `makeappx` do Windows SDK — Visual Studio não é necessário)
 - Upload do `.msix` gerado em **`msix\dist\wavizo.CadastroClnico_1.0.7.0_x64.msix`** (73,2 MB; formato aceito pelo Partner Center junto com .msixbundle/.msixupload)
 - **Não precisa assinar**: a Microsoft re-assina o pacote após a certificação (docs: *App package requirements for MSIX app*)
+- **Upload:** se o submission já tem um `.msix` antigo, o Partner Center pode reclamar de nome completo duplicado. Nesse caso: apagar as entradas antigas em Packages **e** subir o arquivo novo (versão incrementada) — nunca dois pacotes com versão/arquitetura iguais e conteúdo diferente
 - Arquitetura: **x64 autocontido** (não exige .NET na máquina do usuário); para cobrir ARM64 no futuro, gerar variante `-r win-arm64`
-- "What's new in this version" (limite 1500 caracteres): descrever as mudanças da versão 1.0.7
+- "What's new in this version" (limite 1500 caracteres): descrever as mudanças da versão
 
 ### 3.5 Store listings (por idioma: pt-BR)
 - **Nome (obrigatório):** Cadastro Clínico
@@ -114,5 +116,6 @@ Ordem das telas (docs Microsoft, app MSIX): **Pricing and availability → Prope
 | # | Data | Retorno | Causa | Correção |
 |---|---|---|---|---|
 | 1 | 06/10/2026 | *"does not display any content after launch"* (Surface Laptop 4, build 26200.9457) | App navegava por `file://`; `/assets/...` (caminho absoluto) virava `file:///assets` e módulos ES eram bloqueados por CORS em origem opaca → página em branco desde sempre | `MainForm.cs` agora usa `SetVirtualHostNameToFolderMapping("cadclinico.app", web)` + `https://cadclinico.app/index.html`; verificado com teste de instalação real do `.msix` (renderização `root:2, text:214`) |
+| 2 | 06/10/2026 | *"dois pacotes com o nome completo wavizo.CadastroClnico_1.0.7.0_Neutral_ ... conteúdos diferentes"* | Pacote antigo (mojibake) ainda no submission + novo upload com mesma versão e arquitetura `Neutral` | Versão → `1.0.7.1` e `ProcessorArchitecture="x64"`; apagar entradas antigas em Packages antes de subir o novo |
 
-**Pacote atual:** `msix/dist/wavizo.CadastroClnico_1.0.7.0_x64.msix` (73,2 MB, sem assinatura, build 06/10/2026 19:43) — pronto para substituir o pacote em *Packages* e reenviar.
+**Pacote atual:** `msix/dist/wavizo.CadastroClnico_1.0.7.1_x64.msix` (73,2 MB, sem assinatura, build 06/10/2026 19:55) — remover os `.msix` antigos (1.0.7.0) em *Packages*, depois enviar este.
