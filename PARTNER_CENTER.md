@@ -119,4 +119,4 @@ Ordem das telas (docs Microsoft, app MSIX): **Pricing and availability → Prope
 | 2 | 06/10/2026 | *"dois pacotes com o nome completo wavizo.CadastroClnico_1.0.7.0_Neutral_ ... conteúdos diferentes"* | Pacote antigo (mojibake) ainda no submission + novo upload com mesma versão e arquitetura `Neutral` | `ProcessorArchitecture="x64"` + bump de versão; apagar entradas antigas em Packages antes de subir o novo |
 | 3 | 06/10/2026 | *"não é permitido ... número de revisão diferente de zero ... especifica 1.0.7.1"* | Versão incrementada no 4º campo (revisão) — proibido pela Store | 4º campo = `0` sempre; incrementar o 3º campo: `1.0.8.0` |
 
-**Pacote atual:** `msix/dist/wavizo.CadastroClnico_1.0.8.0_x64.msix` (73,2 MB, sem assinatura, build 06/10/2026 19:59) — remover entradas antigas em *Packages* e enviar este.
+**Pacote atual:** `msix/dist/wavizo.CadastroClnico_1.0.9.0_x64.msix` (73,2 MB, sem assinatura, build 08/10/2026 — inclui modal de aceite de termos v1.0 na primeira execução) — remover entradas antigas em *Packages* e enviar este.
